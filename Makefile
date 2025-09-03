@@ -6,15 +6,15 @@
 #    By: dkhoo <dkhoo@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/11 11:29:35 by dkhoo             #+#    #+#              #
-#    Updated: 2025/08/14 12:40:15 by dkhoo            ###   ########.fr        #
+#    Updated: 2025/09/03 12:10:25 by dkhoo            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = pipex
 
-CC = cc
-CCFLAGS = -Wall -Wextra -Werror -g -O0
 DEBUG_FLAG = -g -O0
+CC = cc
+CCFLAGS = -Wall -Wextra -Werror -g -O0 $(DEBUG_FLAG)
 
 LIBFT_DIR = libft
 LIBFT = $(LIBFT_DIR)/libft.a
@@ -27,7 +27,8 @@ SRC_SHARED_FILES =	cleanup.c\
 					cmd.c\
 					error.c\
 					log.c\
-					parse.c
+					parse.c\
+					tokenize.c
 SRC_FILES =	main.c\
 			pipe.c
 SRC_FILES_BONUS = $(SRC_FILES:.c=_bonus.c) heredoc_bonus.c

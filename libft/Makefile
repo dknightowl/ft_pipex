@@ -6,7 +6,7 @@
 #    By: dkhoo <dkhoo@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/15 09:05:13 by dkhoo             #+#    #+#              #
-#    Updated: 2025/07/30 17:17:42 by dkhoo            ###   ########.fr        #
+#    Updated: 2025/09/01 15:51:33 by dkhoo            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,8 @@ HEADER_FILES	=	extra.h libft.h get_next_line_bonus.h ft_printf.h
 EXTRA_SRC_FILES		=		ft_islower.c\
 							ft_isupper.c\
 							ft_strtol.c\
-							ft_free2d.c
+							ft_free2d.c\
+							ft_isspace.c
 LIBC_SRC_FILES		=		ft_isalpha.c\
 							ft_isdigit.c\
 							ft_isalnum.c\

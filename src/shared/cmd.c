@@ -6,7 +6,7 @@
 /*   By: dkhoo <dkhoo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 05:43:21 by dkhoo             #+#    #+#             */
-/*   Updated: 2025/08/23 16:42:12 by dkhoo            ###   ########.fr       */
+/*   Updated: 2025/09/03 20:46:43 by dkhoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,7 @@ char	*get_cmdpath(char *cmd, char *envp[])
 	return (NULL);
 }
 
-// ft_free2d((void **) cmdtokens);
-// execve(cmdpath, ft_split(cmd, ' '), envp);
+// cmdargv = ft_split(cmd, ' ');
 /**
 	@brief Executes given cmd using execve. Parses command into tokens,
 	locates the path to its executable on the system, and executes it.
@@ -105,16 +104,16 @@ char	*get_cmdpath(char *cmd, char *envp[])
 void	execute_cmd(char *cmd, char **envp)
 {
 	char	*cmdpath;
-	char	**cmdtokens;
+	char	**cmdargv;
 
-	cmdtokens = ft_split(cmd, ' ');
-	if (!cmdtokens)
-		exit_perr("Failed to split cmdtokens");
-	cmdpath = get_cmdpath(cmdtokens[0], envp);
+	cmdargv = tokenize_cmd(cmd);
+	if (!cmdargv)
+		exit_custom("Failed to split command vector");
+	cmdpath = get_cmdpath(cmdargv[0], envp);
 	if (!cmdpath)
 	{
-		ft_free2d((void **) cmdtokens);
+		ft_free2d((void **) cmdargv);
 		exit_perr("Failed to obtain command path");
 	}
-	execve(cmdpath, cmdtokens, envp);
+	execve(cmdpath, cmdargv, envp);
 }

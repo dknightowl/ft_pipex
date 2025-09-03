@@ -46,6 +46,7 @@ ft_pipex
 │  ├─ log.h
 │  ├─ pipex.h
 │  └─ struct.h
+├─ infile
 ├─ libft
 └─ src
    ├─ heredoc_bonus.c
@@ -58,7 +59,8 @@ ft_pipex
       ├─ cmd.c
       ├─ error.c
       ├─ log.c
-      └─ parse.c
+      ├─ parse.c
+      └─ tokenize.c
 ```
 
 ## 🧠 Key Concepts

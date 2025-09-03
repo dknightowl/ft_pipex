@@ -6,7 +6,7 @@
 /*   By: dkhoo <dkhoo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 13:26:33 by dkhoo             #+#    #+#             */
-/*   Updated: 2025/08/20 16:07:56 by dkhoo            ###   ########.fr       */
+/*   Updated: 2025/09/03 12:11:46 by dkhoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define PIPEX_H
 
 # define SYSERR_CODE -1
+# define MAX_ARGS 128
+# define MAX_ARG_LEN 1024
 
 // libft
 # include "extra.h"
@@ -52,6 +54,7 @@ void	parse_npipex(int argc, char *argv[], t_npipex *npipex);
 void	close_io(int fd_in, int fd_out);
 void	cleanup_fds(int pipe_fd1, int pipe_fd2, int fd_in, int fd_out);
 void	free_npipex(t_npipex *vars);
+char	**tokenize_cmd(char *cmd);
 
 // mandatory
 void	execute_pipe(t_pipex *vars, char *envp[]);
