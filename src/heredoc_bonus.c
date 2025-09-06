@@ -6,7 +6,7 @@
 /*   By: dkhoo <dkhoo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 12:24:01 by dkhoo             #+#    #+#             */
-/*   Updated: 2025/08/21 05:50:08 by dkhoo            ###   ########.fr       */
+/*   Updated: 2025/09/05 17:56:20 by dkhoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,17 @@
 
 /**
 	@brief Performs cleanup upon the completion of a heredoc child process.
-	Closes input file descriptor, closes the write end of the heredoc pipe, and
-	waits for the child process to terminate.
+	Closes the write end of the heredoc pipe, and waits for the child process 
+	to terminate.
 
-	@param vars Pointer to t_npipex struct containing the input file descriptor
 	@param pipefd Pipe file descriptors array (0 - read, 1 - write)
-	@param pid Pointer to PID of the child process
+	@param pid PID of the child process to wait for
 	@param status Pointer to an integer where the child's exit status is stored
 */
-static void	cleanup(t_npipex *vars, int pipefd[2], pid_t *pid, int *status)
+static void	cleanup(int pipefd[2], pid_t pid, int *status)
 {
-	close(vars->input_fd);
 	close(pipefd[1]);
-	waitpid(*pid, status, 0);
+	waitpid(pid, status, 0);
 }
 
 /**
@@ -89,6 +87,6 @@ void	handle_heredoc(t_npipex *vars, int pipefd[2])
 			exit(0);
 		}
 		else
-			cleanup(vars, pipefd, &pid, &status);
+			cleanup(pipefd, pid, &status);
 	}
 }

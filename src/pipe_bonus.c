@@ -6,7 +6,7 @@
 /*   By: dkhoo <dkhoo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/01 03:08:49 by dkhoo             #+#    #+#             */
-/*   Updated: 2025/08/23 05:41:04 by dkhoo            ###   ########.fr       */
+/*   Updated: 2025/09/05 17:56:25 by dkhoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,8 +137,11 @@ void	execute_npipe(t_npipex *vars, char *envp[])
 			update_pipeline(&state, pipefd, vars);
 		state.cmd_idx++;
 	}
-	close(state.prev_fd_in);
-	close_io(vars->input_fd, vars->output_fd);
+	if (vars->heredoc_on)
+		close_io(vars->input_fd, vars->output_fd);
+	else
+		close(vars->output_fd);
 	free_npipex(vars);
 	wait_for_children(&state.c_pids, vars);
 }
+

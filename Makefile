@@ -6,7 +6,7 @@
 #    By: dkhoo <dkhoo@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/11 11:29:35 by dkhoo             #+#    #+#              #
-#    Updated: 2025/09/03 12:10:25 by dkhoo            ###   ########.fr        #
+#    Updated: 2025/09/05 16:11:33 by dkhoo            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = pipex
 
 DEBUG_FLAG = -g -O0
 CC = cc
-CCFLAGS = -Wall -Wextra -Werror -g -O0 $(DEBUG_FLAG)
+CCFLAGS = -Wall -Wextra -Werror $(DEBUG_FLAG)
 
 LIBFT_DIR = libft
 LIBFT = $(LIBFT_DIR)/libft.a

@@ -6,7 +6,7 @@
 /*   By: dkhoo <dkhoo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 13:27:23 by dkhoo             #+#    #+#             */
-/*   Updated: 2025/09/03 20:08:23 by dkhoo            ###   ########.fr       */
+/*   Updated: 2025/09/05 14:53:41 by dkhoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,17 +43,11 @@ static char	*parse_quoted_token(char *s, int *idx, char q_char)
 				break ;
 		}
 		if (!append_char(token, &t_idx, s[*idx]))
-		{
-			free(token);
-			return (NULL);
-		}
+			return (free(token), NULL);
 		(*idx)++;
 	}
 	if (s[*idx] != q_char)
-	{
-		free(token);
-		return (NULL);
-	}
+		return (free(token), NULL);
 	(*idx)++;
 	return (token);
 }
@@ -76,19 +70,12 @@ static char	*parse_unquoted_token(char *s, int *idx)
 		{
 			append_quote = parse_quoted_token(s, idx, s[*idx]);
 			if (!append_quote)
-			{
-				free(token);
-				return (NULL);
-			}
+				return (free(token), NULL);
 			a_idx = 0;
 			while (append_quote[a_idx] != '\0')
 			{
 				if (!append_char(token, &t_idx, append_quote[a_idx]))
-				{
-					free(token);
-					free(append_quote);
-					return (NULL);
-				}
+					return (free(token), free(append_quote), NULL);
 				a_idx++;
 			}
 			free(append_quote);
@@ -101,10 +88,7 @@ static char	*parse_unquoted_token(char *s, int *idx)
 				break ;
 		}
 		if (!append_char(token, &t_idx, s[*idx]))
-		{
-			free(token);
-			return (NULL);
-		}
+			return (free(token), NULL);
 		(*idx)++;
 	}
 	return (token);
