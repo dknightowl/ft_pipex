@@ -6,7 +6,7 @@
 /*   By: dkhoo <dkhoo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 12:24:01 by dkhoo             #+#    #+#             */
-/*   Updated: 2025/09/06 14:39:36 by dkhoo            ###   ########.fr       */
+/*   Updated: 2025/09/07 16:11:48 by dkhoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ static void	heredoc_loop(t_npipex *vars)
 		}
 		write(STDOUT_FILENO, line, ft_strlen(line));
 	}
+	free(vars->limiter);
+	free(vars->cmds);
 }
 
 /**

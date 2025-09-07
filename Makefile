@@ -14,7 +14,7 @@ NAME = pipex
 
 DEBUG_FLAG = -g -O0
 CC = cc
-CCFLAGS = -Wall -Wextra -Werror $(DEBUG_FLAG)
+CCFLAGS = -Wall -Wextra -Werror
 
 LIBFT_DIR = libft
 LIBFT = $(LIBFT_DIR)/libft.a
@@ -41,11 +41,13 @@ SRCS_B = $(SHARED) $(addprefix $(SRC_DIR)/, $(SRC_FILES_BONUS))
 OBJS = $(SRCS:.c=.o)
 OBJS_BONUS = $(SRCS_B:.c=.o)
 
-all: $(OBJS) $(LIBFT)
+all: $(NAME)
+
+$(NAME): $(OBJS) $(LIBFT)
 	$(CC) $(CCFLAGS) $(OBJS) $(LIBFT) -o $(NAME)
 bonus: $(OBJS_BONUS) $(LIBFT)
 	$(CC) $(CCFLAGS) $(OBJS_BONUS) $(LIBFT) -o $(NAME)
-
+	
 %.o: %.c
 	$(CC) $(CCFLAGS) $(LIBFT_INCLUDES) $(PIPEX_INCLUDES) -c $< -o $@
 

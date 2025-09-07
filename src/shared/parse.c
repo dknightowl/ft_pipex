@@ -6,7 +6,7 @@
 /*   By: dkhoo <dkhoo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 16:14:16 by dkhoo             #+#    #+#             */
-/*   Updated: 2025/08/20 18:00:04 by dkhoo            ###   ########.fr       */
+/*   Updated: 2025/09/07 15:15:32 by dkhoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ void	parse_npipex(int argc, char *argv[], t_npipex *npipex)
 		npipex->limiter = NULL;
 	parse_npipex_fds(argc, argv, npipex);
 	npipex->cmd_count = argc - 3 - npipex->heredoc_on;
-	npipex->cmds = malloc(npipex->cmd_count * sizeof(char *));
+	npipex->cmds = (char **) malloc((npipex->cmd_count + 1) * sizeof(char *));
 	if (!npipex->cmds)
 		exit_perr("malloc failed for npipex->cmds");
 	cmd_idx = 0;
@@ -123,4 +123,5 @@ void	parse_npipex(int argc, char *argv[], t_npipex *npipex)
 		npipex->cmds[cmd_idx] = argv[cmd_idx + 2 + npipex->heredoc_on];
 		cmd_idx++;
 	}
+	npipex->cmds[npipex->cmd_count] = NULL;
 }
