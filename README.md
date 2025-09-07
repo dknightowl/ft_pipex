@@ -77,6 +77,7 @@ ft_pipex
       ├─ error.c
       ├─ log.c
       ├─ parse.c
+      ├─ tokenize-utils.c
       └─ tokenize.c
 ```
 
@@ -125,4 +126,5 @@ Run the following valgrind command to check for memory leaks:
 ```
 valgrind --trace-children=yes --track-fds=yes --leak-check=full --show-leak-kinds=all -s ./pipex infile <cmd1> <cmd2> outfile
 ```
+
 
