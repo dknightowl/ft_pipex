@@ -6,7 +6,7 @@
 /*   By: dkhoo <dkhoo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 13:26:33 by dkhoo             #+#    #+#             */
-/*   Updated: 2025/09/03 12:11:46 by dkhoo            ###   ########.fr       */
+/*   Updated: 2025/09/06 17:04:37 by dkhoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,15 +46,26 @@ void	catch_syserr(int process_status, char *err_msg);
 void	exit_perr(char *err_msg);
 void	exit_strerr(int err_code);
 void	exit_custom(char *err_msg);
+
 char	*get_cmdpath(char *cmd, char *envp[]);
 char	**extract_path_envs(char *envp[]);
 void	execute_cmd(char *cmd, char **envp);
+
 void	parse_pipex(char *argv[], t_pipex *pipex);
 void	parse_npipex(int argc, char *argv[], t_npipex *npipex);
+
 void	close_io(int fd_in, int fd_out);
 void	cleanup_fds(int pipe_fd1, int pipe_fd2, int fd_in, int fd_out);
 void	free_npipex(t_npipex *vars);
+
+char	*parse_quoted_token(char *s, int *idx, char q_char);
+char	*parse_unquoted_token(char *s, int *idx);
 char	**tokenize_cmd(char *cmd);
+int		append_char(char *token, int *append_idx, char append_c);
+int		advance_on_backslash(char *s, int *idx);
+int		append_subquote(char *token, int *t_idx, char *s, int *s_idx);
+int		advance_to_next_token(char *cmd, int *s_idx, int t_idx);
+char	*parse_token(char *cmd, int *idx);
 
 // mandatory
 void	execute_pipe(t_pipex *vars, char *envp[]);

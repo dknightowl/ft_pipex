@@ -6,7 +6,7 @@
 /*   By: dkhoo <dkhoo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 13:27:23 by dkhoo             #+#    #+#             */
-/*   Updated: 2025/09/05 14:53:41 by dkhoo            ###   ########.fr       */
+/*   Updated: 2025/09/06 17:04:10 by dkhoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,7 @@
 
 // Tokenize command string into argument vector to be passed to execve
 
-static int	append_char(char *token, int *append_idx, char append_c)
-{
-	if ((*append_idx + 1) >= MAX_ARG_LEN)
-		return (0);
-	token[(*append_idx)++] = append_c;
-	token[*append_idx] = '\0';
-	return (1);
-}
-
-static char	*parse_quoted_token(char *s, int *idx, char q_char)
+char	*parse_quoted_token(char *s, int *idx, char q_char)
 {
 	char	*token;
 	int		t_idx;
@@ -36,12 +27,8 @@ static char	*parse_quoted_token(char *s, int *idx, char q_char)
 	(*idx)++;
 	while (s[*idx] != '\0' && s[*idx] != q_char)
 	{
-		if (s[*idx] == '\\')
-		{
-			(*idx)++;
-			if (s[*idx] == '\0')
-				break ;
-		}
+		if (!advance_on_backslash(s, idx))
+			break ;
 		if (!append_char(token, &t_idx, s[*idx]))
 			return (free(token), NULL);
 		(*idx)++;
@@ -52,12 +39,10 @@ static char	*parse_quoted_token(char *s, int *idx, char q_char)
 	return (token);
 }
 
-static char	*parse_unquoted_token(char *s, int *idx)
+char	*parse_unquoted_token(char *s, int *idx)
 {
 	char	*token;
 	int		t_idx;
-	char	*append_quote;
-	int		a_idx;
 
 	token = malloc(MAX_ARG_LEN);
 	if (!token)
@@ -68,25 +53,12 @@ static char	*parse_unquoted_token(char *s, int *idx)
 	{
 		if (s[*idx] == '"' || s[*idx] == '\'')
 		{
-			append_quote = parse_quoted_token(s, idx, s[*idx]);
-			if (!append_quote)
+			if (!append_subquote(token, &t_idx, s, idx))
 				return (free(token), NULL);
-			a_idx = 0;
-			while (append_quote[a_idx] != '\0')
-			{
-				if (!append_char(token, &t_idx, append_quote[a_idx]))
-					return (free(token), free(append_quote), NULL);
-				a_idx++;
-			}
-			free(append_quote);
 			continue ;
 		}
-		if (s[*idx] == '\\')
-		{
-			(*idx)++;
-			if (s[*idx] == '\0')
-				break ;
-		}
+		if (!advance_on_backslash(s, idx))
+			break ;
 		if (!append_char(token, &t_idx, s[*idx]))
 			return (free(token), NULL);
 		(*idx)++;
@@ -108,19 +80,13 @@ char	**tokenize_cmd(char *cmd)
 	t_idx = 0;
 	while (cmd[s_idx] != '\0')
 	{
-		while (ft_isspace(cmd[s_idx]))
-			s_idx++;
-		if (cmd[s_idx] == '\0' || t_idx > (MAX_ARGS - 1))
+		if (!advance_to_next_token(cmd, &s_idx, t_idx))
 			break ;
-		if (cmd[s_idx] == '"' || cmd[s_idx] == '\'')
-			token = parse_quoted_token(cmd, &s_idx, cmd[s_idx]);
-		else
-			token = parse_unquoted_token(cmd, &s_idx);
+		token = parse_token(cmd, &s_idx);
 		if (!token)
 		{
 			tokens[t_idx] = NULL;
-			ft_free2d((void **) tokens);
-			return (NULL);
+			return (ft_free2d((void **) tokens), NULL);
 		}
 		tokens[t_idx] = token;
 		t_idx++;

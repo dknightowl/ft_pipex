@@ -6,7 +6,7 @@
 #    By: dkhoo <dkhoo@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/11 11:29:35 by dkhoo             #+#    #+#              #
-#    Updated: 2025/09/05 16:11:33 by dkhoo            ###   ########.fr        #
+#    Updated: 2025/09/06 13:50:24 by dkhoo            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,8 @@ SRC_SHARED_FILES =	cleanup.c\
 					error.c\
 					log.c\
 					parse.c\
-					tokenize.c
+					tokenize.c\
+					tokenize-utils.c
 SRC_FILES =	main.c\
 			pipe.c
 SRC_FILES_BONUS = $(SRC_FILES:.c=_bonus.c) heredoc_bonus.c

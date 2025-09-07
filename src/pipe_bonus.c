@@ -6,7 +6,7 @@
 /*   By: dkhoo <dkhoo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/01 03:08:49 by dkhoo             #+#    #+#             */
-/*   Updated: 2025/09/05 17:56:25 by dkhoo            ###   ########.fr       */
+/*   Updated: 2025/09/06 17:57:38 by dkhoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,4 +144,3 @@ void	execute_npipe(t_npipex *vars, char *envp[])
 	free_npipex(vars);
 	wait_for_children(&state.c_pids, vars);
 }
-
